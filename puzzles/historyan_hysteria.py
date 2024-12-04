@@ -9,8 +9,6 @@ def solve():
     list2 = np.sort(complete_list[:, 1])
 
     distance = np.sum(np.abs(np.subtract(list1, list2)))
-
     distance2 = np.sum([value * np.count_nonzero(list2 == value) for value in list1])
 
-    print("Solution 1: ", distance)
-    print("Solution 2: ", distance2)
+    return distance, distance2

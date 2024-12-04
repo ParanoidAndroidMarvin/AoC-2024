@@ -23,7 +23,7 @@ def show_menu():
     in_menu = True
 
     clear()
-    print('AdventOfCode')
+    print('Advent of Code - 2024')
     print('=================')
     print('Choose puzzle:')
     for i in range(1, len(puzzles) + 1):
@@ -53,8 +53,12 @@ def select():
 
     start = time.time()
     puzzle_solver = list(puzzles.values())[selected-1]
-    puzzle_solver()
+    (solution1, solution2) = puzzle_solver()
     stop = time.time()
+
+    print("Solution 1:", solution1)
+    print("Solution 2:", solution2)
+
     print('\nExecution time: {}s'.format(round(stop-start, 3)))
     print('\n[<--]Show Menu [esc]Exit')
 

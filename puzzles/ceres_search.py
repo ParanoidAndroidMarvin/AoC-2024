@@ -50,9 +50,7 @@ def solve():
     xmas_count = count_occurrence_of_sub_arrays(puzzle_input, XMAS_PATTERNS)
     mas_count = count_occurrence_of_sub_arrays(puzzle_input, MAS_PATTERNS)
 
-    print("Solution 1:", xmas_count)
-    print("Solution 2:", mas_count)
-
+    return xmas_count, mas_count
 
 def count_occurrence_of_sub_arrays(array, sub_arrays) -> int:
     count = 0
@@ -84,7 +82,3 @@ def check_for_sub_array(array, subarray, x, y) -> bool:
             if subarray[xd, yd] and array[x + xd, y + yd] != subarray[xd, yd]:
                 return False
     return True
-
-
-if __name__ == '__main__':
-    solve()

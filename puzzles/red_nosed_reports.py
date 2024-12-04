@@ -8,8 +8,7 @@ def solve():
     safe_reports = sum([1 for report in reports if check_levels(report, False)])
     safe_reports2 = sum([1 for report in reports if check_levels(report, True)])
 
-    print("Solution 1: ", safe_reports)
-    print("Solution 2: ", safe_reports2)
+    return safe_reports, safe_reports2
 
 
 def check_levels(levels, dampener_available):
