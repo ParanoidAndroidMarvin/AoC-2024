@@ -1,7 +1,5 @@
 import numpy as np
 
-import aoc_api
-
 XMAS_PATTERN_1 = np.array([['X', 'M', 'A', 'S']])
 XMAS_PATTERN_2 = np.array([['S', 'A', 'M', 'X']])
 XMAS_PATTERN_3 = np.array([['X'],
@@ -45,12 +43,12 @@ MAS_PATTERN_4 = np.array([['S', '', 'S'],
 MAS_PATTERNS = [MAS_PATTERN_1, MAS_PATTERN_2, MAS_PATTERN_3, MAS_PATTERN_4]
 
 
-def solve():
-    puzzle_input = np.array([list(line) for line in aoc_api.fetch_input(4)])
+def solve(puzzle_input):
+    puzzle_input = np.array([list(line) for line in puzzle_input])
     xmas_count = count_occurrence_of_sub_arrays(puzzle_input, XMAS_PATTERNS)
     mas_count = count_occurrence_of_sub_arrays(puzzle_input, MAS_PATTERNS)
-
     return xmas_count, mas_count
+
 
 def count_occurrence_of_sub_arrays(array, sub_arrays) -> int:
     count = 0

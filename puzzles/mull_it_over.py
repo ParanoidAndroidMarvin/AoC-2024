@@ -1,9 +1,8 @@
-import aoc_api
 import re
 
 
-def solve():
-    puzzle_input = ''.join(aoc_api.fetch_input(3))
+def solve(puzzle_input):
+    puzzle_input = ''.join(puzzle_input)
     matches1 = re.findall(r'mul\((\d{1,3}),(\d{1,3})\)', puzzle_input)
     total1 = sum([int(x) * int(y) for x, y in matches1])
 

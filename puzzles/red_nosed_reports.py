@@ -1,9 +1,4 @@
-import aoc_api
-import numpy as np
-
-
-def solve():
-    puzzle_input = aoc_api.fetch_input(2)
+def solve(puzzle_input):
     reports = [[int(entry) for entry in line.split(' ')] for line in puzzle_input]
     safe_reports = sum([1 for report in reports if check_levels(report, False)])
     safe_reports2 = sum([1 for report in reports if check_levels(report, True)])

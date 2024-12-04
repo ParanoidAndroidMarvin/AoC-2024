@@ -2,6 +2,7 @@ from os import system
 import keyboard
 import time
 
+import aoc_api
 from puzzles import historyan_hysteria, red_nosed_reports, mull_it_over, ceres_search
 
 selected = 1
@@ -48,12 +49,15 @@ def select():
     in_menu = False
 
     clear()
+
     print('Puzzle result day {0}:'.format(selected))
     print('---------------------------')
 
-    start = time.time()
+    puzzle_input = aoc_api.fetch_input(selected)
     puzzle_solver = list(puzzles.values())[selected-1]
-    (solution1, solution2) = puzzle_solver()
+
+    start = time.time()
+    (solution1, solution2) = puzzle_solver(puzzle_input)
     stop = time.time()
 
     print("Solution 1:", solution1)
