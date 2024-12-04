@@ -1,3 +1,6 @@
+import aoc_api
+
+
 def solve(puzzle_input):
     reports = [[int(entry) for entry in line.split(' ')] for line in puzzle_input]
     safe_reports = sum([1 for report in reports if check_levels(report, False)])
@@ -7,16 +10,15 @@ def solve(puzzle_input):
 
 
 def check_levels(levels, dampener_available):
-    increase = levels[0] < levels[1]
+    is_sorted = levels == sorted(levels) or levels == sorted(levels, reverse=True)
     for i in range(len(levels)-1):
-        dif = levels[i] - levels[i+1]
-        if (abs(dif) > 3) or (increase and dif >= 0) or (not increase and dif <= 0):
+        diff = abs(levels[i] - levels[i+1])
+        if not is_sorted or (diff > 3) or (diff == 0):
             if dampener_available:
-                for i in range(len(levels)):
+                for j in range(len(levels)):
                     dampened_levels = levels.copy()
-                    del dampened_levels[i]
+                    del dampened_levels[j]
                     if check_levels(dampened_levels, False):
                         return True
-                return False
             return False
     return True

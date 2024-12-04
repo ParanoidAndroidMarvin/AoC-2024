@@ -50,7 +50,7 @@ def solve(puzzle_input):
     return xmas_count, mas_count
 
 
-def count_occurrence_of_sub_arrays(array, sub_arrays) -> int:
+def count_occurrence_of_sub_arrays(array: np.array, sub_arrays: list) -> int:
     count = 0
     for sub_array in sub_arrays:
         count += count_occurrence_of_sub_array(array, sub_array)
@@ -73,7 +73,7 @@ def count_occurrence_of_sub_array(array: np.array, subarray: np.array) -> int:
     return count
 
 
-def check_for_sub_array(array, subarray, x, y) -> bool:
+def check_for_sub_array(array: np.array, subarray: np.array, x: int, y: int) -> bool:
     (xs, ys) = subarray.shape
     for xd in range(xs):
         for yd in range(ys):
