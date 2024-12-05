@@ -32,7 +32,7 @@ def show_menu():
                                             list(puzzles.keys())[i - 1],
                                             ">" if selected == i else " ",
                                             "<" if selected == i else " "))
-    print('\n[˄]Up [˅]Down [return]Select [esc]Exit')
+    print('\n[˄]Up [˅]Down [⏎]Run [T]Test [esc]Exit')
 
 
 def navigate(direction):
@@ -42,28 +42,33 @@ def navigate(direction):
         show_menu()
 
 
-def select():
+def run(test: bool = False):
     global in_menu
     if not in_menu:
         return
     in_menu = False
 
+    mode = '[TEST] ' if test else ''
+
     clear()
+    print(f'{mode}Puzzle result day {selected}:')
+    print('--------------------------------------')
 
-    print('Puzzle result day {0}:'.format(selected))
-    print('---------------------------')
+    try:
+        puzzle_input = aoc_api.fetch_input(selected, test)
+        puzzle_solver = list(puzzles.values())[selected-1]
 
-    puzzle_input = aoc_api.fetch_input(selected)
-    puzzle_solver = list(puzzles.values())[selected-1]
+        start = time.time()
+        (solution1, solution2) = puzzle_solver(puzzle_input)
+        stop = time.time()
 
-    start = time.time()
-    (solution1, solution2) = puzzle_solver(puzzle_input)
-    stop = time.time()
+        print("Solution 1:", solution1)
+        print("Solution 2:", solution2)
 
-    print("Solution 1:", solution1)
-    print("Solution 2:", solution2)
+        print('\nExecution time: {}s'.format(round(stop-start, 3)))
+    except FileNotFoundError:
+        print(f'No test data found for day {selected}!')
 
-    print('\nExecution time: {}s'.format(round(stop-start, 3)))
     print('\n[<--]Show Menu [esc]Exit')
 
 
@@ -72,7 +77,8 @@ keyboard.add_hotkey('up', lambda: navigate(-1))
 keyboard.add_hotkey('left', lambda: navigate(-1))
 keyboard.add_hotkey('down', lambda: navigate(+1))
 keyboard.add_hotkey('right', lambda: navigate(+1))
-keyboard.add_hotkey('enter', select)
+keyboard.add_hotkey(17, lambda: run(test=True))
+keyboard.add_hotkey('enter', run)
 keyboard.add_hotkey('backspace', show_menu)
 keyboard.wait('esc')
 clear()
