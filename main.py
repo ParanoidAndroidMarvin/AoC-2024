@@ -1,9 +1,9 @@
 from os import system
-import keyboard
+from pynput import keyboard
 import time
 
 import aoc_api
-from puzzles import historyan_hysteria, red_nosed_reports, mull_it_over, ceres_search
+from puzzles import historyan_hysteria, red_nosed_reports, mull_it_over, ceres_search, print_queue
 
 selected = 1
 in_menu = True
@@ -11,7 +11,8 @@ puzzles = {
     'Historian Hysteria': historyan_hysteria.solve,
     'Red-Nosed Reports': red_nosed_reports.solve,
     'Mull It Over': mull_it_over.solve,
-    'Ceres Search': ceres_search.solve
+    'Ceres Search': ceres_search.solve,
+    'Print Queue': print_queue.solve,
 }
 
 
@@ -38,7 +39,11 @@ def show_menu():
 def navigate(direction):
     if in_menu:
         global selected
-        selected = max(1, selected + direction)
+        selected = selected + direction
+        if selected < 1:
+            selected = len(puzzles)
+        elif selected > len(puzzles):
+            selected = 1
         show_menu()
 
 
@@ -55,7 +60,7 @@ def run(test: bool = False):
     print('--------------------------------------')
 
     try:
-        puzzle_input = aoc_api.fetch_input(selected, test)
+        puzzle_input = aoc_api.get_puzzle_input(selected, test)
         puzzle_solver = list(puzzles.values())[selected-1]
 
         start = time.time()
@@ -73,12 +78,17 @@ def run(test: bool = False):
 
 
 show_menu()
-keyboard.add_hotkey('up', lambda: navigate(-1))
-keyboard.add_hotkey('left', lambda: navigate(-1))
-keyboard.add_hotkey('down', lambda: navigate(+1))
-keyboard.add_hotkey('right', lambda: navigate(+1))
-keyboard.add_hotkey(17, lambda: run(test=True))
-keyboard.add_hotkey('enter', run)
-keyboard.add_hotkey('backspace', show_menu)
-keyboard.wait('esc')
+
+with keyboard.GlobalHotKeys({
+    '<up>': lambda: navigate(-1),
+    '<left>': lambda: navigate(-1),
+    '<down>': lambda: navigate(1),
+    '<right>': lambda: navigate(1),
+    '<enter>': run,
+    '<backspace>': show_menu,
+    't': lambda: run(test=True),
+    '<esc>': lambda: keyboard_listener.stop(),
+}) as keyboard_listener:
+    keyboard_listener.join()
+
 clear()
