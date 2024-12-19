@@ -3,7 +3,7 @@ from pynput import keyboard
 import time
 
 import aoc_api
-from puzzles import historyan_hysteria, red_nosed_reports, mull_it_over, ceres_search, print_queue
+from puzzles import historyan_hysteria, red_nosed_reports, mull_it_over, ceres_search, print_queue, guard_gallivant
 
 selected_day = 1
 solution = None
@@ -15,6 +15,7 @@ puzzles = {
     'Mull It Over': mull_it_over.solve,
     'Ceres Search': ceres_search.solve,
     'Print Queue': print_queue.solve,
+    'Guard Gallivant': guard_gallivant.solve,
 }
 
 
