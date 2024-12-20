@@ -3,7 +3,7 @@ from pynput import keyboard
 import time
 
 import aoc_api
-from puzzles import historyan_hysteria, red_nosed_reports, mull_it_over, ceres_search, print_queue, guard_gallivant
+from puzzles import historyan_hysteria, red_nosed_reports, mull_it_over, ceres_search, print_queue, guard_gallivant, bridge_repair
 
 selected_day = 1
 solution = None
@@ -16,6 +16,7 @@ puzzles = {
     'Ceres Search': ceres_search.solve,
     'Print Queue': print_queue.solve,
     'Guard Gallivant': guard_gallivant.solve,
+    'Bridge Repair': bridge_repair.solve,
 }
 
 
@@ -81,7 +82,7 @@ def run(test: bool = False):
     if test:
         print('\n[<--]Menu [esc]Exit')
     else:
-        print('\n[<--]Menu [cmd+F1]Submit Part 1 [cmd+F2]Submit Part 2 [esc]Exit')
+        print('\n[<--]Menu [cmd+shift+1]Submit Part 1 [cmd+shift+2]Submit Part 2 [esc]Exit')
 
 
 def submit(part: int):
@@ -104,8 +105,8 @@ with keyboard.GlobalHotKeys({
     '<cmd>+<enter>': lambda: run(test=True),
     '<enter>': run,
     '<backspace>': show_menu,
-    '<cmd>+<f1>': lambda: submit(1),
-    '<cmd>+<f2>': lambda: submit(2),
+    '<cmd>+<shift>+1': lambda: submit(1),
+    '<cmd>+<shift>+2': lambda: submit(2),
     '<esc>': lambda: keyboard_listener.stop(),
 }) as keyboard_listener:
     keyboard_listener.join()
