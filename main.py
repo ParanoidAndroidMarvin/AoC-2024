@@ -3,7 +3,7 @@ from pynput import keyboard
 import time
 
 import aoc_api
-from puzzles import historyan_hysteria, red_nosed_reports, mull_it_over, ceres_search, print_queue, guard_gallivant, bridge_repair
+from puzzles import historyan_hysteria, red_nosed_reports, mull_it_over, ceres_search, print_queue, guard_gallivant, bridge_repair, disk_fragmenter
 
 selected_day = 1
 solution = None
@@ -17,6 +17,8 @@ puzzles = {
     'Print Queue': print_queue.solve,
     'Guard Gallivant': guard_gallivant.solve,
     'Bridge Repair': bridge_repair.solve,
+    '404 NOT FOUND': None,
+    'Disk Fragmenter': disk_fragmenter.solve
 }
 
 
